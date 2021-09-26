@@ -1,0 +1,25 @@
+﻿@model IEnumerable<VeterinarskaStanica.Models.Dijagnoza>
+<table class="table">
+    <tr>
+            
+        <th>
+            @Html.DisplayNameFor(model => model.Naziv_dijagnoze)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sifra_dijagnoze)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naziv_dijagnoze)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sifra_dijagnoze)
+            </td>
+        </tr>
+    }
+
+</table>

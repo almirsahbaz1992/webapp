@@ -1,0 +1,32 @@
+﻿@model VeterinarskaStanica.Areas.ModulKorisnickiNalog.Models.NalogDeleteVM
+
+<form asp-area="ModulKorisnickiNalog" asp-controller="KorisnickiNalogs" asp-action="Aktiviraj" data-ajax="true" data-ajax-method="post" data-ajax-update="#ajaxpozivNalozi">
+    @if (TempData["Message"] != null)
+    {
+        <div>
+            <h3>@TempData["Message"]</h3>
+        </div>
+    }
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h4>Korisnički nalog aktivacija </h4>
+        <hr />
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.KorisnickiNalogId, Model.listaNaloga.Select(model => new SelectListItem
+           {
+               Value = model.Id.ToString(),
+               Text = model.Username
+           }).ToList(), null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sačuvaj" class="btn btn-default" />
+
+        </div>
+    </div>
+
+</form>

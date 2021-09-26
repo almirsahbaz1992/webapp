@@ -1,0 +1,69 @@
+﻿@model VeterinarskaStanica.Areas.ModulAdmin.Models.TehnicarDodajVM
+
+<form asp-area="ModulAdmin" asp-controller="Tehnicko_osoblje" asp-action="Edit" data-ajax="true" data-ajax-method="post" data-ajax-update="#ajaxpozivKorisnici">
+    @if (TempData["Message"] != null)
+    {
+        <div>
+            <h3>@TempData["Message"]</h3>
+        </div>
+    }
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Tehnicko osoblje</h4>
+        <hr />
+        @Html.HiddenFor(model => model.KorisnickiNalogId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vrsta_posla, "Vrsta posla", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Vrsta_posla, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Vrsta_posla, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GradoviId, "Grad", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.GradoviId, Model.listaGradova.Select(model => new SelectListItem
+           {
+               Value = model.Id.ToString(),
+               Text = model.Naziv
+           }).ToList(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.KorisnickiNalogId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OdjeliId, "Odjel", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.OdjeliId, Model.listaOdjela.Select(model => new SelectListItem
+           {
+               Value = model.Id.ToString(),
+               Text = model.Naziv
+           }).ToList(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.KorisnickiNalogId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Prezime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Prezime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Prezime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Spasi" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>

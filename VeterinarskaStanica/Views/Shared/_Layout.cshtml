@@ -1,0 +1,1735 @@
+﻿﻿@using VeterinarskaStanica.Models
+@using VeterinarskaStanica.Models
+@using VeterinasrkaStanica.Helper
+
+@{
+    KorisnickiNalog korisnik = Autentifikacija.GetLogiraniKorisnik(Context);
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+
+    <meta name="author" content="">
+
+    <title>Veterinarska stanica </title>
+
+    <!-- Bootstrap Core CSS -->
+
+
+
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+
+    <link href="~/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+
+    <link href="~/css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+
+    <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+    <script src="~/js/jquery.js"></script>
+
+</head>
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+
+            <div class="navbar-header">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+
+                    <span class="sr-only">Toggle navigation</span>
+
+                    <span class="icon-bar"></span>
+
+                    <span class="icon-bar"></span>
+
+                    <span class="icon-bar"></span>
+
+                </button>
+
+                <a class="navbar-brand" href="Home">Veterinarska stanica</a>
+
+            </div>
+
+            <!-- Top Menu Items -->
+
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> &nbsp @korisnik.Username <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#ajaxpozivPorfil" href="/ModulKorisnickiNalog/KorisnickiNalogs/Izmjena"><i class="fa fa-user"> &nbsp </i>Moj profil</a>
+
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/ModulLogin/Login/Logout"><i class="fa fa-fw fa-power-off"></i> Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+                <ul class="nav navbar-nav side-nav">
+
+
+@if (korisnik.admin == true)
+                    {
+                    <li>
+
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Korisnički nalozi <i class="fa fa-fw fa-caret-down"></i></a>
+
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a href="#" data-ajax="true" data-ajax-url="/ModulKorisnickiNalog/KorisnickiNalogs/Create" data-ajax-update="#ajaxpozivNalozi">Kreiraj korisnički nalog</a>
+                            </li>
+                            <li>
+                                <a href="#" data-ajax="true" data-ajax-url="/ModulKorisnickiNalog/KorisnickiNalogs/Delete" data-ajax-update="#ajaxpozivNalozi">Obriši korisnički nalog</a>
+
+                            </li>
+                            <li>
+                                <a href="#" data-ajax="true" data-ajax-url="/ModulKorisnickiNalog/KorisnickiNalogs/EditNeaktivne" data-ajax-update="#ajaxpozivNalozi">Aktivacija/Deaktivacija korisničkog naloga</a>
+                            </li>
+                        </ul>
+                        </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-arrows-v"></i> Korisnici<i class="fa fa-fw fa-caret-down"></i></a>
+
+                        <ul id="demo1" class="collapse">
+
+                            <li>
+
+                                <a href="javascript:;" data-toggle="collapse" data-target="#demo11">Dodaj novog korisnika <i class="fa fa-fw fa-caret-down"></i></a>
+
+                                <ul id="demo11" class="collapse">
+
+                                    <li>
+                                        <a href="javascript:void();"
+                                           data-ajax="true"
+                                           data-ajax-url="/ModulAdmin/Administrator/Create"
+                                           data-ajax-update="#ajaxpozivKorisnici">Dodaj novog administratora</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:void();"
+                                           data-ajax="true"
+                                           data-ajax-url="/ModulAdmin/Doktor/Create"
+                                           data-ajax-update="#ajaxpozivKorisnici">Dodaj novog doktora</a>
+
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:void();"
+                                           data-ajax="true"
+                                           data-ajax-url="/ModulAdmin/Tehnicko_osoblje/Create"
+                                           data-ajax-update="#ajaxpozivKorisnici">Dodaj novog tehničara</a>
+
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li>
+
+                                <a href="javascript:;" data-toggle="collapse" data-target="#demo13">Brisanje korisnika <i class="fa fa-fw fa-caret-down"></i></a>
+
+                                <ul id="demo13" class="collapse">
+
+                                    <li>
+                                        <a href="javascript:void();"
+                                           data-ajax="true"
+                                           data-ajax-url="/ModulAdmin/Administrator/Delete"
+                                           data-ajax-update="#ajaxpozivKorisnici">Brisanje administratora</a>
+
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:void();"
+                                           data-ajax="true"
+                                           data-ajax-url="/ModulAdmin/Doktor/Delete"
+                                           data-ajax-update="#ajaxpozivKorisnici">Brisanje doktora</a>
+
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:void();"
+                                           data-ajax="true"
+                                           data-ajax-url="/ModulAdmin/Tehnicko_osoblje/Delete"
+                                           data-ajax-update="#ajaxpozivKorisnici">Brisanje tehničara</a>
+
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li>
+
+                                <a href="javascript:;" data-toggle="collapse" data-target="#demo14">Pregled liste korisnika <i class="fa fa-fw fa-caret-down"></i></a>
+
+                                <ul id="demo14" class="collapse">
+
+                                    <li>
+                                        <a href="javascript:void();"
+                                           data-ajax="true"
+                                           data-ajax-url="/ModulAdmin/Administrator/Index"
+                                           data-ajax-update="#ajaxliste">Pregled liste administratora</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:void();"
+                                           data-ajax="true"
+                                           data-ajax-url="/ModulAdmin/Doktor/Index"
+                                           data-ajax-update="#ajaxliste">Pregled liste doktora</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:void();"
+                                           data-ajax="true"
+                                           data-ajax-url="/ModulAdmin/Tehnicko_osoblje/Index"
+                                           data-ajax-update="#ajaxliste">Pregled liste tehničkog osoblja</a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                        </ul>
+
+                        </li>
+                    <li>
+
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i> Unos novih podataka <i class="fa fa-fw fa-caret-down"></i></a>
+
+                        <ul id="demo2" class="collapse">
+
+                            <li>
+                                <a href="javascript:void();"
+                                   data-ajax="true"
+                                   data-ajax-url="/ModulAdmin/Gradovi/Create"
+                                   data-ajax-update="#ajaxpoziv">Unos gradova</a>
+
+                            </li>
+
+                            <li>
+                                <a href="javascript:void();"
+                                   data-ajax="true"
+                                   data-ajax-url="/ModulAdmin/Odjeli/Create"
+                                   data-ajax-update="#ajaxpoziv">Unos odjela</a>
+
+                            </li>
+
+                            <li>
+
+                                <a href="javascript:void();"
+                                   data-ajax="true"
+                                   data-ajax-url="/ModulAdmin/StrucneSpreme/Create"
+                                   data-ajax-update="#ajaxpoziv">Unos stručnih sprema</a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void();"
+                                   data-ajax="true"
+                                   data-ajax-url="/ModulAdmin/Zvanjes/Create"
+                                   data-ajax-update="#ajaxpoziv">Unos zvanja</a>
+
+                            </li>
+
+                        </ul>
+
+                        </li>
+                }
+
+                <!-- ---------------------------------------------------------------------------------------------------- -->
+
+
+
+@if (korisnik.doc == true)
+
+                    {
+
+                <li>
+
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo456">Upravljanje pacijentima<i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo456" class="collapse">
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Pacijent/Create"
+                               data-ajax-update="#ajaxpozivNalozi">Dodaj novog pacijenta</a>
+
+                        </li>
+
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Pacijent/Delete"
+                               data-ajax-update="#ajaxpozivNalozi">Obriši pacijenta</a>
+
+                        </li>
+
+                    </ul>
+
+                    </li>
+
+                <li>
+
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo457">Upravljanje lijekovima <i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo457" class="collapse">
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Lijekovi/Create"
+                               data-ajax-update="#ajaxpozivKorisnici">Dodaj novi lijek</a>
+
+                        </li>
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Lijekovi/Delete"
+                               data-ajax-update="#ajaxpozivKorisnici">Obriši lijek</a>
+
+                        </li>
+
+
+                    </ul>
+
+                    </li>
+
+                <li>
+
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo3">Upravljanje dijagnozama <i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo3" class="collapse">
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Dijagnoza/Create"
+                               data-ajax-update="#ajaxpoziv">Dodaj novu dijagnozu</a>
+
+                        </li>
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Dijagnoza/Delete"
+                               data-ajax-update="#ajaxpoziv">Obriši dijagnozu</a>
+
+                        </li>
+
+
+                    </ul>
+
+                    </li>
+
+                <li>
+
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo5">Upravljanje pregledima <i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo5" class="collapse">
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Pregledi/Create"
+                               data-ajax-update="#ajaxpoziv">Dodaj novi pregled</a>
+
+                        </li>
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Pregledi/Delete"
+                               data-ajax-update="#ajaxpoziv">Obriši pregled</a>
+
+                        </li>
+
+
+                    </ul>
+
+                    </li>
+
+                <li>
+
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo6">Upravljanje uspostavljenim dijagnozama<i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo6" class="collapse">
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/UspostavljenaDijagnoza/Create"
+                               data-ajax-update="#ajaxpoziv">Dodaj uspostavljenu dijagnozu</a>
+
+                        </li>
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/UspostavljenaDijagnoza/Delete"
+                               data-ajax-update="#ajaxpoziv">Obriši uspostavljenu dijagnozu</a>
+
+                        </li>
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/UspostavljenaDijagnoza/Index"
+                               data-ajax-update="#ajaxliste">Pregledaj uspostavljene dijagnoze</a>
+
+
+                        </li>
+
+
+                    </ul>
+
+                    </li>
+
+                <li>
+
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo4">Upravljanje vlasnicima <i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo4" class="collapse">
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Vlasnici/Create"
+                               data-ajax-update="#ajaxpozivNalozi">Dodaj novog vlasnika</a>
+
+                        </li>
+
+
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Vlasnici/Delete"
+                               data-ajax-update="#ajaxpozivNalozi">Obriši vlasnika</a>
+
+                        </li>
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Vlasnici/Index"
+                               data-ajax-update="#ajaxliste">Prikaži vlasnike</a>
+
+                        </li>
+
+
+                    </ul>
+
+                    </li>
+
+                <li>
+
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo232">Upravljanje vrstama <i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo232" class="collapse">
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Vrsta/Create"
+                               data-ajax-update="#ajaxpozivKorisnici">Dodaj novu vrstu</a>
+
+                        </li>
+
+
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Vrsta/Index"
+                               data-ajax-update="#ajaxliste">Prikaži sve vrste</a>
+
+                        </li>
+
+
+                    </ul>
+
+                    </li>
+                }
+
+                <!-- ---------------------------------------------------------------------------------------------------- -->
+
+@if (korisnik.teh_osob == true)
+
+                    {
+
+                <li>
+
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo808">Terapije<i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo808" class="collapse">
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulTehnickoOsoblje/Terapije/Create"
+                               data-ajax-update="#ajaxpozivNalozi">Dodaj novu terapiju</a>
+                            
+
+                        </li>
+
+
+                <li>
+                    <a href="javascript:void();"
+                       data-ajax="true"
+                       data-ajax-url="/ModulTehnickoOsoblje/Terapije/Delete"
+                       data-ajax-update="#ajaxpozivNalozi">Obriši terapiju</a>
+                    
+
+                </li>
+
+                </ul>
+
+                </li>
+
+                <li>
+
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo807">Usluge<i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo807" class="collapse">
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulTehnickoOsoblje/Usluga/Create"
+                               data-ajax-update="#ajaxpozivKorisnici">Dodaj novu uslugu</a>
+
+                </li>
+
+
+                <li>
+                    <a href="javascript:void();"
+                       data-ajax="true"
+                       data-ajax-url="/ModulTehnickoOsoblje/Usluga/Delete"
+                       data-ajax-update="#ajaxpozivKorisnici">Obriši uslugu</a>
+                    
+
+                </li>
+
+
+                </ul>
+
+                </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo806">Računi<i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo806" class="collapse">
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulTehnickoOsoblje/Racun/Create"
+                               data-ajax-update="#ajaxpoziv">Dodaj novi račun</a>
+
+                </li>
+
+
+                <li>
+                    <a href="javascript:void();"
+                       data-ajax="true"
+                       data-ajax-url="/ModulTehnickoOsoblje/Racun/Delete"
+                       data-ajax-update="#ajaxpoziv">Obriši račun</a>
+
+                </li>
+
+
+                </ul>
+
+                </li>
+
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo805">Uplate<i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo805" class="collapse">
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulTehnickoOsoblje/Uplate/Create"
+                               data-ajax-update="#ajaxpoziv">Dodaj novu uplatu</a>
+
+                </li>
+
+
+                <li>
+                    <a href="javascript:void();"
+                       data-ajax="true"
+                       data-ajax-url="/ModulTehnickoOsoblje/Uplate/Delete"
+                       data-ajax-update="#ajaxpoziv">Obriši uplatu</a>
+
+                </li>
+
+
+                </ul>
+
+                </li>
+
+
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo804">Definisane terapije<i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo804" class="collapse">
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulTehnickoOsoblje/DefinisaneTerapije/Create"
+                               data-ajax-update="#ajaxpozivNalozi">Dodaj definisanu terapiju</a>
+
+                </li>
+
+
+                <li>
+                    <a href="javascript:void();"
+                       data-ajax="true"
+                       data-ajax-url="/ModulTehnickoOsoblje/DefinisaneTerapije/Delete"
+                       data-ajax-update="#ajaxpozivNalozi">Obriši definisanu terapiju</a>
+
+                </li>
+
+                <li>
+                    <a href="javascript:void();"
+                       data-ajax="true"
+                       data-ajax-url="/ModulTehnickoOsoblje/DefinisaneTerapije/Index"
+                       data-ajax-update="#ajaxliste">Prikaži definisane terapije</a>
+                    
+
+                </li>
+
+                </ul>
+
+                </li>
+
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo803">Izvršene usluge<i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo803" class="collapse">
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulTehnickoOsoblje/IzvrsenaUsluga/Create"
+                               data-ajax-update="#ajaxpozivKorisnici">Dodaj izvršenu uslugu</a>
+
+                </li>
+
+
+                <li>
+                    <a href="javascript:void();"
+                       data-ajax="true"
+                       data-ajax-url="/ModulTehnickoOsoblje/IzvrsenaUsluga/Delete"
+                       data-ajax-update="#ajaxpozivKorisnici">Obriši izvršenu uslugu</a>
+
+                </li>
+
+                <li>
+                    <a href="javascript:void();"
+                       data-ajax="true"
+                       data-ajax-url="/ModulTehnickoOsoblje/IzvrsenaUsluga/Index"
+                       data-ajax-update="#ajaxliste">Prikaži izvršene usluge</a>
+
+                </li>
+
+                </ul>
+
+                </li>
+
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo802">Kupljeni lijekovi<i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo802" class="collapse">
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulTehnickoOsoblje/KupljeniLijek/Create"
+                               data-ajax-update="#ajaxpozivNalozi">Dodaj kupljeni lijek</a>
+
+                </li>
+
+
+                <li>
+                    <a href="javascript:void();"
+                       data-ajax="true"
+                       data-ajax-url="/ModulTehnickoOsoblje/KupljeniLijek/Delete"
+                       data-ajax-update="#ajaxpozivNalozi">Obriši kupljeni lijek</a>
+                    
+
+                </li>
+
+                <li>
+                    <a href="javascript:void();"
+                       data-ajax="true"
+                       data-ajax-url="/ModulTehnickoOsoblje/KupljeniLijek/Index"
+                       data-ajax-update="#ajaxliste">Prikaži kupljene lijekove</a>
+
+                </li>
+
+                </ul>
+
+                </li>
+
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo801">Uloge<i class="fa fa-fw fa-caret-down"></i></a>
+
+                    <ul id="demo801" class="collapse">
+                        <li>
+                            <a href="javascript:void();"
+                               data-ajax="true"
+                               data-ajax-url="/ModulTehnickoOsoblje/Uloga/Create"
+                               data-ajax-update="#ajaxpozivKorisnici">Dodaj ulogu</a>
+
+                </li>
+
+
+                <li>
+                    <a href="javascript:void();"
+                       data-ajax="true"
+                       data-ajax-url="/ModulTehnickoOsoblje/Uloga/Delete"
+                       data-ajax-update="#ajaxpozivKorisnici">Obriši ulogu</a>
+
+                </li>
+
+                <li>
+                    <a href="javascript:void();"
+                       data-ajax="true"
+                       data-ajax-url="/ModulTehnickoOsoblje/Uloga/Index"
+                       data-ajax-update="#ajaxliste">Prikaži uloge</a>
+                </li>
+
+                </ul>
+
+                </li>
+                }
+
+                <!-- ---------------------------------------------------------------------------------------------------- -->
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+
+
+
+@if (korisnik.admin == true)
+                        {
+                        <h1 class="page-header">
+
+                            Administrator <small>Početna stranica</small>
+
+                            </h1>
+    }
+
+
+
+
+@if (korisnik.doc == true)
+                        {
+    <h1 class="page-header">
+
+        Doktor <small>Početna stranica</small>
+
+    </h1>
+    }
+
+
+
+
+@if (korisnik.teh_osob == true)
+                        {
+    <h1 class="page-header">
+
+        Tehničko osoblje <small>Početna stranica</small>
+
+    </h1>
+    }
+
+
+    <div id="ajaxpozivPorfil" align="right">
+
+    </div>
+
+    </div>
+
+    </div>
+
+    <!-- /.row -->
+
+    <div class="row">
+
+        <div class="col-lg-12">
+
+
+
+        </div>
+
+    </div>
+
+
+
+
+@if (korisnik.admin == true)
+                {
+                <!-- /.row -->
+
+
+    <div class="row">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+
+                    <div class="row">
+
+                        <div class="col-xs-3">
+
+                            <i class="fa fa-tasks fa-5x"></i>
+
+                        </div>
+
+                        <div class="col-xs-9 text-right">
+
+                            <div class="well-lg">Administratori</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a href="#">
+
+                    <div class="panel-footer">
+
+                        <span class="pull-left">    
+                            <a href="#"
+                               data-ajax="true"
+                               data-ajax-url="/ModulAdmin/Administrator/Index"
+                               data-ajax-update="#ajaxliste">Pogledaj listu</a>
+                        </span>
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="panel panel-green">
+
+                <div class="panel-heading">
+
+                    <div class="row">
+
+                        <div class="col-xs-3">
+
+                            <i class="fa fa-tasks fa-5x"></i>
+
+                        </div>
+
+                        <div class="col-xs-9 text-right">
+
+                            <div class="well-lg">Doktori</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a href="#">
+
+                    <div class="panel-footer">
+
+                        <span class="pull-left"></span>
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="panel panel-yellow">
+
+                <div class="panel-heading">
+
+                    <div class="row">
+
+                        <div class="col-xs-3">
+
+                            <i class="fa fa-tasks fa-5x"></i>
+
+                        </div>
+
+                        <div class="col-xs-9 text-right">
+
+                            <div class="well-lg">Tehničari</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a href="#">
+
+                    <div class="panel-footer">
+
+                        <span class="pull-left" onclick="$('#ajaxliste').display()">)</span>
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="panel panel-group">
+
+                <div class="panel-heading">
+
+                    <div class="row">
+
+                        <div class="col-xs-3">
+
+                            <i class="fa fa-tasks fa-5x"></i>
+
+                        </div>
+
+                        <div class="col-xs-9 text-right">
+
+                            <div class="well-lg">Nalozi</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a href="#">
+
+                    <div class="panel-footer">
+
+                        <span class="pull-left">
+                            <a href="#"
+                               data-ajax="true"
+                               data-ajax-url="/ModulKorisnickiNalog/KorisnickiNalogs/Index"
+                               data-ajax-update="#ajaxliste">Pogledaj listu</a>
+                        </span>
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+    <!-- /.row -->
+    }
+
+
+
+
+@if (korisnik.doc == true)
+                {
+                <!-- /.row -->
+
+
+    <div class="row">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+
+                    <div class="row">
+
+                        <div class="col-xs-3">
+
+                            <i class="fa fa-tasks fa-5x"></i>
+
+                        </div>
+
+                        <div class="col-xs-9 text-right">
+
+                            <div class="well-lg">Pacijenti</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a href="#">
+
+                    <div class="panel-footer">
+
+                        <span class="pull-left">
+                            <a href="#"
+                               data-ajax="true"
+                               data-ajax-url="/ModulDoktor/Pacijent/Index"
+                               data-ajax-update="#ajaxliste">Pogledaj terapije</a>
+                        </span>
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="panel panel-green">
+
+                <div class="panel-heading">
+
+                    <div class="row">
+
+                        <div class="col-xs-3">
+
+                            <i class="fa fa-tasks fa-5x"></i>
+
+                        </div>
+
+                        <div class="col-xs-9 text-right">
+
+                            <div class="well-lg">Lijekovi</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a href="#">
+
+                    <div class="panel-footer">
+
+                        <span class="pull-left">)</span>
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="panel panel-yellow">
+
+                <div class="panel-heading">
+
+                    <div class="row">
+
+                        <div class="col-xs-3">
+
+                            <i class="fa fa-tasks fa-5x"></i>
+
+                        </div>
+
+                        <div class="col-xs-9 text-right">
+
+                            <div class="well-lg">Dijagnoze</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a href="#">
+
+                    <div class="panel-footer">
+
+                        <span class="pull-left" onclick="$('#ajaxliste').display()">)</span>
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="panel panel-group">
+
+                <div class="panel-heading">
+
+                    <div class="row">
+
+                        <div class="col-xs-3">
+
+                            <i class="fa fa-tasks fa-5x"></i>
+
+                        </div>
+
+                        <div class="col-xs-9 text-right">
+
+                            <div class="well-lg">Pregledi</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a href="#">
+
+                    <div class="panel-footer">
+
+                        <span class="pull-left" onclick="$('#ajaxliste').display()">)</span>
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- /.row -->
+    }
+
+
+
+
+@if (korisnik.teh_osob == true)
+                {
+                <!-- /.row -->
+
+
+    <div class="row">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+
+                    <div class="row">
+
+                        <div class="col-xs-3">
+
+                            <i class="fa fa-tasks fa-5x"></i>
+
+                        </div>
+
+                        <div class="col-xs-9 text-right">
+
+                            <div class="well-lg">Terapije</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a href="#">
+
+                    <div class="panel-footer">
+
+                        <span class="pull-left">
+                            <a href="#"
+                               data-ajax="true"
+                               data-ajax-url="/ModulTehnickoOsoblje/Terapije/Index"
+                               data-ajax-update="#ajaxliste">Pogledaj terapije</a>
+                        </span>
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="panel panel-green">
+
+                <div class="panel-heading">
+
+                    <div class="row">
+
+                        <div class="col-xs-3">
+
+                            <i class="fa fa-tasks fa-5x"></i>
+
+                        </div>
+
+                        <div class="col-xs-9 text-right">
+
+                            <div class="well-lg">Usluge</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a href="#">
+
+                    <div class="panel-footer">
+
+                        <span class="pull-left">)</span>
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="panel panel-yellow">
+
+                <div class="panel-heading">
+
+                    <div class="row">
+
+                        <div class="col-xs-3">
+
+                            <i class="fa fa-tasks fa-5x"></i>
+
+                        </div>
+
+                        <div class="col-xs-9 text-right">
+
+                            <div class="well-lg">Računi</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a href="#">
+
+                    <div class="panel-footer">
+
+                        <span class="pull-left" onclick="$('#ajaxliste').display()">)</span>
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="panel panel-group">
+
+                <div class="panel-heading">
+
+                    <div class="row">
+
+                        <div class="col-xs-3">
+
+                            <i class="fa fa-tasks fa-5x"></i>
+
+                        </div>
+
+                        <div class="col-xs-9 text-right">
+
+                            <div class="well-lg">Uplate</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a href="#">
+
+                    <div class="panel-footer">
+
+                        <span class="pull-left" onclick="$('#ajaxliste').display()">)</span>
+
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- /.row -->
+    }
+
+    <div class="row">
+
+        <div class="col-lg-12">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">
+
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Liste
+
+                    </h3>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div id="ajaxliste">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+@if (korisnik.admin)
+                {
+    <div class="row">
+
+
+
+        <div class="col-lg-4 text-center">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">
+
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Korisnički nalozi
+
+                    </h3>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div id="ajaxpozivNalozi">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 text-center">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">
+
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Korisnici
+
+                    </h3>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div id="ajaxpozivKorisnici">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 text-center">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">
+
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Podaci
+
+                    </h3>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div id="ajaxpoziv">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    }
+
+
+
+
+@if (korisnik.doc)
+                {
+    <div class="row">
+
+
+
+        <div class="col-lg-4 text-center">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">
+
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Pacijenti/Vlasnici
+
+                    </h3>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div id="ajaxpozivNalozi">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 text-center">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">
+
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Lijekovi/Vrste
+
+                    </h3>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div id="ajaxpozivKorisnici">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 text-center">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">
+
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Dijagnoze/Pregledi
+
+                    </h3>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div id="ajaxpoziv">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    }
+
+
+
+
+@if (korisnik.teh_osob)
+                {
+    <div class="row">
+
+
+
+        <div class="col-lg-4 text-center">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">
+
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Terapije/Kupljeni lijekovi
+
+                    </h3>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div id="ajaxpozivNalozi">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 text-center">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">
+
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Usluge/Uloge
+
+                    </h3>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div id="ajaxpozivKorisnici">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 text-center">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">
+
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Računi/Uplate
+
+                    </h3>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div id="ajaxpoziv">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    }
+
+
+
+    </div>
+
+    <!-- /.container-fluid -->
+
+    </div>
+
+    <!-- /#page-wrapper -->
+    </div>
+
+<div class="container body-content">
+
+
+
+@RenderBody()
+
+
+
+</div>
+
+<!-- /#wrapper -->
+<!-- jQuery -->
+
+<script src="~/js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="~/js/bootstrap.min.js"></script>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<script src="~/js/plugins/morris/raphael.min.js"></script>
+
+<script src="~/js/plugins/morris/morris.min.js"></script>
+
+<script src="~/js/plugins/morris/morris-data.js"></script>
+
+</body>
+
+</html>
